@@ -24,10 +24,10 @@ THE SOFTWARE.
 
 $(function () {
 	var loadedcss = '';
-	$('#time1').val('15:00');
+	$('#time1').val('17:00');
 	$('#time2').val('20:00');
 	$('#time3').val('25:00');
-	$('#info').html("Click to edit this message.");
+	$('#info').html("20 min talk & 5 min discussion");
 
 	function getHashParams() {
 		var hashParams = {};
@@ -216,6 +216,17 @@ $(function () {
 		show_time();
 	}
 
+	const sleep = msec => new Promise(resolve => setTimeout(resolve, msec));
+	async function flashScreen() {
+		$('body').css('background-color', '#fffa');
+		await sleep(200);
+		$('body').css('background-color', '#000');
+		await sleep(150);
+		$('body').css('background-color', '#fffa');
+		await sleep(200);
+		$('body').css('background-color', '#000');
+	}
+
 	$('[data-toggle="tooltip"]').tooltip();
 	$.timer(100, function (timer) {
 		resize_display();
@@ -232,18 +243,21 @@ $(function () {
 					changePhaseClass('1');
 					audio_chime1.currentTime = 0;
 					audio_chime1.play();
+					flashScreen();
 				}
 
 				if ((last_time < time2 && time2 <= cur_time) || (last_time == time2 && cur_time == time2)) {
 					changePhaseClass('2');
 					audio_chime2.currentTime = 0;
 					audio_chime2.play();
+					flashScreen();
 				}
 
 				if ((last_time < time3 && time3 <= cur_time) || (last_time == time3 && cur_time == time3)) {
 					changePhaseClass('3');
 					audio_chime3.currentTime = 0;
 					audio_chime3.play();
+					flashScreen();
 				}
 
 			}
