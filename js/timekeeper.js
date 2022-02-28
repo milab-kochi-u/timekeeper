@@ -199,6 +199,7 @@ $(function () {
 		audio_chime1.load();
 		audio_chime1.currentTime = 0;
 		audio_chime1.play();
+		flashScreen();
 	});
 
 	function show_time() {
